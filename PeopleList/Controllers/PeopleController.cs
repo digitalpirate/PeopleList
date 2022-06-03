@@ -14,11 +14,13 @@ namespace PeopleList.Controllers
         {
             _appDbContext = appDbContext;
         }
+
         private readonly PeopleRepository _peopleRepository;
-        public PeopleRepository(PeopleRepository peopleRepository)
+        public IPeopleRepository(PeopleRepository peopleRepository)
         {
             _peopleRepository = peopleRepository;
         }
+
         public IEnumerable<Person> AllPeople
         {
             get { return _appDbContext.People; }
@@ -29,6 +31,7 @@ namespace PeopleList.Controllers
             PeopleViewModel peopleViewModel = new PeopleViewModel
             {
                 Person = _peopleRepository.AllPeople
+                
             };
 
             return View(peopleViewModel);
