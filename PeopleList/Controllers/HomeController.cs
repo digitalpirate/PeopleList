@@ -27,8 +27,8 @@ namespace PeopleList.Controllers
         public IActionResult Index(int id,string name, string phoneNumber, string city)
         {
             {
-
-                //AddNewPerson(id, name, phoneNumber, city);
+                Models.Person.AddNewPerson(id, name, phoneNumber, city);
+                
 
                 PeopleViewModel peopleViewModel = new PeopleViewModel
                 {

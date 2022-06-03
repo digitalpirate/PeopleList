@@ -12,7 +12,7 @@ namespace PeopleList.Models
         public string PhoneNumber { get; set; }
         public string City { get; set; }
 
-        public void AddNewPerson(int Id,string name, string phoneNumber, string city)
+        public static void AddNewPerson(int Id,string name, string phoneNumber, string city)
         {
             //Hämta ut högsta Id från databas, öka med ett. Sätt som Id nedan och ta bort inmatning av Id manuellt
 
