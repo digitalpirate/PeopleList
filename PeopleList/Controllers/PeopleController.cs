@@ -7,13 +7,23 @@ using System.Linq;
 
 namespace PeopleList.Controllers
 {
-    public class HomeController : Controller
+    public class PeopleController : Controller
     {
+        private readonly AppDbContext _appDbContext;
+        public PeopleController(AppDbContext appDbContext)
+        {
+            _appDbContext = appDbContext;
+        }
         private readonly PeopleRepository _peopleRepository;
-        public HomeController(PeopleRepository peopleRepository)
+        public PeopleRepository(PeopleRepository peopleRepository)
         {
             _peopleRepository = peopleRepository;
         }
+        public IEnumerable<Person> AllPeople
+        {
+            get { return _appDbContext.People; }
+        }
+        
         public IActionResult Index()
         {
             PeopleViewModel peopleViewModel = new PeopleViewModel
@@ -26,27 +36,21 @@ namespace PeopleList.Controllers
         [HttpPost]
         public IActionResult AddPerson(string name, string phoneNumber, string city)
         {
+            var newPerson = new Person()
             {
-                var newPerson = new Person()
-                {
+                Name = name,
+                PhoneNumber = phoneNumber,
+                City = city
+            };
 
-                    Name = name,
-                    PhoneNumber = phoneNumber,
-                    City = city
-                };
+            _appDbContext.People.Add(newPerson);
 
-                _peopleRepository.
+            PeopleViewModel peopleViewModel = new PeopleViewModel
+            {
+                Person = _peopleRepository.AllPeople
+            };
 
-
-
-                PeopleViewModel peopleViewModel = new PeopleViewModel
-                {
-                    Person = _peopleRepository.AllPeople
-                };
-
-                return View(peopleViewModel);
-
-            }
+            return View(peopleViewModel);
         }
 
         [HttpPost]
@@ -67,8 +71,8 @@ namespace PeopleList.Controllers
             {
                 Id = id
             };
-            context.People.Remove(person);
-            context.SaveChanges();
+            _appDbContext.People.Remove(person);
+            _appDbContext.SaveChanges();
 
             PeopleViewModel peopleViewModel = new PeopleViewModel
             {
