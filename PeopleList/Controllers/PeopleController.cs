@@ -27,7 +27,7 @@ namespace PeopleList.Controllers
             return View(peopleViewModel);
         }
         [HttpPost]
-        public IActionResult AddPerson(string name, string phoneNumber, string city)
+        public IActionResult Index(string name, string phoneNumber, string city)
         {
             var newPerson = new Person()
             {
@@ -35,27 +35,22 @@ namespace PeopleList.Controllers
                 PhoneNumber = phoneNumber,
                 City = city
             };
-            
             _context.People.Add(newPerson);
 
             PeopleViewModel peopleViewModel = new PeopleViewModel
             {
                 Person = _context.People.ToList()
             };
-
             return View(peopleViewModel);
         }
 
         [HttpPost]
         public IActionResult Index(string search)
         {
-
             //PeopleViewModel peopleViewModel = Search(search);
             //plocka ut det som matchar sökterm skicka till View.
-
             //return View(peopleViewModel);
             return View();
-
         }
         [HttpPost]
         public IActionResult Index(int id)
@@ -66,12 +61,10 @@ namespace PeopleList.Controllers
             };
             _context.People.Remove(person);
             _context.SaveChanges();
-
             PeopleViewModel peopleViewModel = new PeopleViewModel
             {
                 Person = _context.People.ToList()
             };
-
             return View(peopleViewModel);
         }
     }
