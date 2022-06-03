@@ -5,5 +5,6 @@
         <th>@Model.Name</th>
         <th>@Model.City</th>
         <th>@Model.PhoneNumber</th>
-        <th><input type="submit" name="Id" value="Delete" /></th>
+        <form asp-controller="Home" asp-action="Index" method="post">
+            <input type="submit" name="Id" value="Delete" /></form>
 </tr>

@@ -9,8 +9,8 @@ namespace PeopleList.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IPeopleRepository _peopleRepository;
-        public HomeController(IPeopleRepository peopleRepository)
+        private readonly PeopleRepository _peopleRepository;
+        public HomeController(PeopleRepository peopleRepository)
         {
             _peopleRepository = peopleRepository;
         }
@@ -24,11 +24,20 @@ namespace PeopleList.Controllers
             return View(peopleViewModel);
         }
         [HttpPost]
-        public IActionResult Index(int id,string name, string phoneNumber, string city)
+        public IActionResult AddPerson(string name, string phoneNumber, string city)
         {
             {
-                Models.Person.AddNewPerson(id, name, phoneNumber, city);
-                
+                var newPerson = new Person()
+                {
+
+                    Name = name,
+                    PhoneNumber = phoneNumber,
+                    City = city
+                };
+
+                _peopleRepository.
+
+
 
                 PeopleViewModel peopleViewModel = new PeopleViewModel
                 {
@@ -54,7 +63,13 @@ namespace PeopleList.Controllers
         [HttpPost]
         public IActionResult Index(int id)
         {
-            //DeletePerson(id);
+            var person = new Person()
+            {
+                Id = id
+            };
+            context.People.Remove(person);
+            context.SaveChanges();
+
             PeopleViewModel peopleViewModel = new PeopleViewModel
             {
                 Person = _peopleRepository.AllPeople
