@@ -2,8 +2,9 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using PeopleList.Models;
 
-namespace PeopleList.Models
+namespace PeopleList.NewFolder
 {
     public class PeopleRepository : IPeopleRepository
     {
@@ -16,8 +17,5 @@ namespace PeopleList.Models
         {
             get { return _appDbContext.People; }
         }
-
-
-
     }
 }

@@ -9,28 +9,18 @@ namespace PeopleList.Controllers
 {
     public class PeopleController : Controller
     {
-        private readonly AppDbContext _appDbContext;
-        public PeopleController(AppDbContext appDbContext)
+       
+        private readonly AppDbContext _context;
+        public PeopleController(AppDbContext context)
         {
-            _appDbContext = appDbContext;
+            _context = context;
         }
 
-        private readonly PeopleRepository _peopleRepository;
-        public IPeopleRepository(PeopleRepository peopleRepository)
-        {
-            _peopleRepository = peopleRepository;
-        }
-
-        public IEnumerable<Person> AllPeople
-        {
-            get { return _appDbContext.People; }
-        }
-        
         public IActionResult Index()
         {
             PeopleViewModel peopleViewModel = new PeopleViewModel
             {
-                Person = _peopleRepository.AllPeople
+                Person = _context.People.ToList()
                 
             };
 
@@ -45,12 +35,12 @@ namespace PeopleList.Controllers
                 PhoneNumber = phoneNumber,
                 City = city
             };
-
-            _appDbContext.People.Add(newPerson);
+            
+            _context.People.Add(newPerson);
 
             PeopleViewModel peopleViewModel = new PeopleViewModel
             {
-                Person = _peopleRepository.AllPeople
+                Person = _context.People.ToList()
             };
 
             return View(peopleViewModel);
@@ -74,12 +64,12 @@ namespace PeopleList.Controllers
             {
                 Id = id
             };
-            _appDbContext.People.Remove(person);
-            _appDbContext.SaveChanges();
+            _context.People.Remove(person);
+            _context.SaveChanges();
 
             PeopleViewModel peopleViewModel = new PeopleViewModel
             {
-                Person = _peopleRepository.AllPeople
+                Person = _context.People.ToList()
             };
 
             return View(peopleViewModel);
