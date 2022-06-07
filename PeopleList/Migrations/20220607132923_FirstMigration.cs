@@ -2,7 +2,7 @@
 
 namespace PeopleIndex.Migrations
 {
-    public partial class ANewHope : Migration
+    public partial class FirstMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -77,26 +77,24 @@ namespace PeopleIndex.Migrations
                 name: "PeopleWhoSpeakLanguages",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PeopleId = table.Column<int>(nullable: true),
+                    Id = table.Column<int>(nullable: false),
                     LanguageId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PeopleWhoSpeakLanguages", x => x.Id);
+                    table.PrimaryKey("PK_PeopleWhoSpeakLanguages", x => new { x.Id, x.LanguageId });
+                    table.ForeignKey(
+                        name: "FK_PeopleWhoSpeakLanguages_People_Id",
+                        column: x => x.Id,
+                        principalTable: "People",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_PeopleWhoSpeakLanguages_Language_LanguageId",
                         column: x => x.LanguageId,
                         principalTable: "Language",
                         principalColumn: "LanguageId",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PeopleWhoSpeakLanguages_People_PeopleId",
-                        column: x => x.PeopleId,
-                        principalTable: "People",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.InsertData(
@@ -150,11 +148,6 @@ namespace PeopleIndex.Migrations
                 name: "IX_PeopleWhoSpeakLanguages_LanguageId",
                 table: "PeopleWhoSpeakLanguages",
                 column: "LanguageId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PeopleWhoSpeakLanguages_PeopleId",
-                table: "PeopleWhoSpeakLanguages",
-                column: "PeopleId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -163,10 +156,10 @@ namespace PeopleIndex.Migrations
                 name: "PeopleWhoSpeakLanguages");
 
             migrationBuilder.DropTable(
-                name: "Language");
+                name: "People");
 
             migrationBuilder.DropTable(
-                name: "People");
+                name: "Language");
 
             migrationBuilder.DropTable(
                 name: "Cities");

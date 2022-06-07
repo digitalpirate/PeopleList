@@ -16,13 +16,14 @@ namespace PeopleIndex.Models
         public DbSet<Person> People { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Country> Countries { get; set; }
+        public DbSet<Language> Languages { get; set; }
         public DbSet<PeopleWhoSpeakLanguage> PeopleWhoSpeakLanguages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
                         
-           /* modelBuilder.Entity<PeopleWhoSpeakLanguage>().HasKey(pwsl => new { pwsl.Id, pwsl.LanguageId });
+            modelBuilder.Entity<PeopleWhoSpeakLanguage>().HasKey(pwsl => new { pwsl.Id, pwsl.LanguageId });
 
             modelBuilder.Entity<PeopleWhoSpeakLanguage>()
                 .HasOne(pwsl => pwsl.Language)
@@ -32,9 +33,19 @@ namespace PeopleIndex.Models
             modelBuilder.Entity<PeopleWhoSpeakLanguage>()
                 .HasOne(pwsl => pwsl.People)
                 .WithMany(l => l.LanguageOfPerson)
-                .HasForeignKey(pwsl => pwsl.Id);*/
-                
+                .HasForeignKey(pwsl => pwsl.Id);
+
+            //seed Language
+
+            modelBuilder.Entity<Language>().HasData(new Language
+            {
+                CountryId = 1,
+                CountryName = "Swedish"
+            });
+
             // seed Countries
+
+
 
             modelBuilder.Entity<Country>().HasData(new Country
             {

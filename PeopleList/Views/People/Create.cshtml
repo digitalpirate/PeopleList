@@ -7,6 +7,6 @@
     <label asp-for="PhoneNumber">Phone Number</label>
     <input asp-for="PhoneNumber" type="text" />
     <label asp-for="City">City</label>
-    <input asp-for="City" type="text" />
+    <select asp-for="CityId" asp-items="@ViewBag.City"> </select>
     <input type="submit" value="Create" />
 </form>

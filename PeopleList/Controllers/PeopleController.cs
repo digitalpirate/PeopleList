@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using PeopleIndex.Models;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,7 @@ namespace PeopleIndex.Controllers
         }
         public IActionResult Create()
         {
+            ViewBag.City = new SelectList(_context.Cities, "CityId", "CityName");
             return View();
         }
         [HttpPost]

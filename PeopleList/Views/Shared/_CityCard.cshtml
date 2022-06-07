@@ -8,6 +8,9 @@
       @Model.CityName
     </div>
     <div class="col-sm">
+      @Model.Country.CountryName
+    </div>
+    <div class="col-sm">
         <a asp-action="Remove" asp-route-cityId="@Model.CityId">Remove</a>
     </div>
 </div>

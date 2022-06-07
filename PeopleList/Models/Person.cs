@@ -22,15 +22,9 @@ namespace PeopleIndex.Models
         
         [Required]
         public City City { get; set; }
-        /*
+        
         [Required]
         public List<PeopleWhoSpeakLanguage> LanguageOfPerson { get; set; }
         
-        
-        [Required]
-        public Country country { get; set; }
-        
-        */
-
     }
 }

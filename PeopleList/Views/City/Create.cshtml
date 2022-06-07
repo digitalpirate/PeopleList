@@ -4,5 +4,6 @@
     <label>Add City</label>
     <label asp-for="CityName">City</label>
     <input asp-for="CityName" type="text" />
+    <select asp-for="CountryId" asp-items="@ViewBag.Country"> </select>
     <input type="submit" value="Create" />
 </form>

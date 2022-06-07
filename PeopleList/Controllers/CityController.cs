@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using PeopleIndex.Models;
 using System;
 using System.Collections.Generic;
@@ -18,9 +19,9 @@ namespace PeopleIndex.Controllers
             List<City> listOfCities = _context.Cities.ToList();
             return View(listOfCities);
         }
-
         public IActionResult Create()
         {
+            ViewBag.Country = new SelectList(_context.Countries, "CountryId", "CountryName");
             return View();
         }
         [HttpPost]

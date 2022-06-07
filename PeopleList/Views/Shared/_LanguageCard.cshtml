@@ -1,0 +1,13 @@
+﻿@model Language
+
+<div class="row">
+    <div class="col-sm">
+      @Model.LanguageId
+    </div>
+    <div class="col-sm">
+      @Model.LanguageName
+    </div>
+    <div class="col-sm">
+        <a asp-action="Remove" asp-route-countryId="@Model.LanguageId">Remove</a>
+    </div>
+</div>
