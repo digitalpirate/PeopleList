@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using PeopleIndex.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace PeopleIndex.Controllers
         }
         public IActionResult Cities()
         {
-            List<City> listOfCities = _context.Cities.ToList();
+            List<City> listOfCities = _context.Cities.Include(c => c.Country).ToList();
             return View(listOfCities);
         }
         public IActionResult Create()

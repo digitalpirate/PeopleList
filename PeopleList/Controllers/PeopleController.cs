@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+
 using PeopleIndex.Models;
 using System;
 using System.Collections.Generic;
@@ -16,7 +18,7 @@ namespace PeopleIndex.Controllers
         }
         public IActionResult Index()
         {
-           List<Person> listOfPeople=_context.People.ToList();
+           List<Person> listOfPeople=_context.People.Include(c => c.City).ToList();
            return View(listOfPeople);
         }
         [HttpPost]
