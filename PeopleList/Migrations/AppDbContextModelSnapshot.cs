@@ -19,24 +19,6 @@ namespace PeopleIndex.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("PeopleIndex.Models.CitiesInCountry", b =>
-                {
-                    b.Property<int>("CityId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CountryId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CityId1")
-                        .HasColumnType("int");
-
-                    b.HasKey("CityId", "CountryId");
-
-                    b.HasIndex("CityId1");
-
-                    b.ToTable("CitiesInCountries");
-                });
-
             modelBuilder.Entity("PeopleIndex.Models.City", b =>
                 {
                     b.Property<int>("CityId")
@@ -47,7 +29,12 @@ namespace PeopleIndex.Migrations
                     b.Property<string>("CityName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("CountryId")
+                        .HasColumnType("int");
+
                     b.HasKey("CityId");
+
+                    b.HasIndex("CountryId");
 
                     b.ToTable("Cities");
 
@@ -55,17 +42,26 @@ namespace PeopleIndex.Migrations
                         new
                         {
                             CityId = 1,
-                            CityName = "Stockholm"
+                            CityName = "Stockholm",
+                            CountryId = 1
                         },
                         new
                         {
                             CityId = 2,
-                            CityName = "Göteborg"
+                            CityName = "Göteborg",
+                            CountryId = 1
                         },
                         new
                         {
                             CityId = 3,
-                            CityName = "Malmö"
+                            CityName = "Malmö",
+                            CountryId = 1
+                        },
+                        new
+                        {
+                            CityId = 4,
+                            CityName = "Halmstad",
+                            CountryId = 1
                         });
                 });
 
@@ -101,24 +97,41 @@ namespace PeopleIndex.Migrations
                         });
                 });
 
-            modelBuilder.Entity("PeopleIndex.Models.PeopleInCity", b =>
+            modelBuilder.Entity("PeopleIndex.Models.Language", b =>
+                {
+                    b.Property<int>("LanguageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("LanguageName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("LanguageId");
+
+                    b.ToTable("Language");
+                });
+
+            modelBuilder.Entity("PeopleIndex.Models.PeopleWhoSpeakLanguage", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CityId")
+                    b.Property<int>("LanguageId")
                         .HasColumnType("int");
 
                     b.Property<int?>("PeopleId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id", "CityId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("CityId");
+                    b.HasIndex("LanguageId");
 
                     b.HasIndex("PeopleId");
 
-                    b.ToTable("PeopleInCities");
+                    b.ToTable("PeopleWhoSpeakLanguages");
                 });
 
             modelBuilder.Entity("PeopleIndex.Models.Person", b =>
@@ -128,9 +141,8 @@ namespace PeopleIndex.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("CityId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -142,65 +154,70 @@ namespace PeopleIndex.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CityId");
+
                     b.ToTable("People");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            City = "Halmstad",
+                            CityId = 4,
                             Name = "Christian",
                             PhoneNumber = "0123456789"
                         },
                         new
                         {
                             Id = 2,
-                            City = "Halmstad",
+                            CityId = 4,
                             Name = "Billy",
                             PhoneNumber = "1234567890"
                         },
                         new
                         {
                             Id = 3,
-                            City = "Stockholm",
+                            CityId = 1,
                             Name = "Adam",
                             PhoneNumber = "3456789012"
                         },
                         new
                         {
                             Id = 4,
-                            City = "Göteborg",
+                            CityId = 2,
                             Name = "Dennis",
                             PhoneNumber = "3478956012"
                         });
                 });
 
-            modelBuilder.Entity("PeopleIndex.Models.CitiesInCountry", b =>
+            modelBuilder.Entity("PeopleIndex.Models.City", b =>
                 {
                     b.HasOne("PeopleIndex.Models.Country", "Country")
                         .WithMany("Cities")
-                        .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("PeopleIndex.Models.City", "City")
-                        .WithMany("Cities")
-                        .HasForeignKey("CityId1")
+                        .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PeopleIndex.Models.PeopleInCity", b =>
+            modelBuilder.Entity("PeopleIndex.Models.PeopleWhoSpeakLanguage", b =>
                 {
-                    b.HasOne("PeopleIndex.Models.City", "City")
-                        .WithMany("People")
-                        .HasForeignKey("CityId")
+                    b.HasOne("PeopleIndex.Models.Language", "Language")
+                        .WithMany("WhoSpeakLanguages")
+                        .HasForeignKey("LanguageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("PeopleIndex.Models.Person", "People")
                         .WithMany()
                         .HasForeignKey("PeopleId");
+                });
+
+            modelBuilder.Entity("PeopleIndex.Models.Person", b =>
+                {
+                    b.HasOne("PeopleIndex.Models.City", "City")
+                        .WithMany("PeopleInCity")
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -16,29 +16,13 @@ namespace PeopleIndex.Models
         public DbSet<Person> People { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Country> Countries { get; set; }
-        /*public DbSet<CitiesInCountry> CitiesInCountries { get; set; }
-        public DbSet<PeopleInCity> PeopleInCities { get; set; }*/
         public DbSet<PeopleWhoSpeakLanguage> PeopleWhoSpeakLanguages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            /*modelBuilder.Entity<CitiesInCountry>().HasKey(cic => new { cic.CityId, cic.CountryId });
-
-            modelBuilder.Entity<CitiesInCountry>()
-                .HasOne(cic => cic.Country)
-                .WithMany(ci => ci.Cities)
-                .HasForeignKey(cic => cic.CityId);
-
-            modelBuilder.Entity<PeopleInCity>().HasKey(pic => new { pic.Id, pic.CityId });
-
-            modelBuilder.Entity<PeopleInCity>()
-                .HasOne(pic => pic.City)
-                .WithMany(p => p.People)
-                .HasForeignKey(pic => pic.CityId);*/
-
-            modelBuilder.Entity<PeopleWhoSpeakLanguage>().HasKey(pwsl => new { pwsl.Id, pwsl.LanguageId });
+                        
+           /* modelBuilder.Entity<PeopleWhoSpeakLanguage>().HasKey(pwsl => new { pwsl.Id, pwsl.LanguageId });
 
             modelBuilder.Entity<PeopleWhoSpeakLanguage>()
                 .HasOne(pwsl => pwsl.Language)
@@ -48,11 +32,8 @@ namespace PeopleIndex.Models
             modelBuilder.Entity<PeopleWhoSpeakLanguage>()
                 .HasOne(pwsl => pwsl.People)
                 .WithMany(l => l.LanguageOfPerson)
-                .HasForeignKey(pwsl => pwsl.Id);
+                .HasForeignKey(pwsl => pwsl.Id);*/
                 
-            
-            
-
             // seed Countries
 
             modelBuilder.Entity<Country>().HasData(new Country
@@ -131,7 +112,7 @@ namespace PeopleIndex.Models
                 PhoneNumber = "3478956012",
                 CityId=2
             });
-            
+
         }
 
     }
