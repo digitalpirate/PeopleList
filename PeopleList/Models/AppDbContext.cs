@@ -39,8 +39,8 @@ namespace PeopleIndex.Models
 
             modelBuilder.Entity<Language>().HasData(new Language
             {
-                CountryId = 1,
-                CountryName = "Swedish"
+                LanguageId = 1,
+                LanguageName = "Swedish"
             });
 
             // seed Countries
