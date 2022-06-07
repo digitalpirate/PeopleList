@@ -9,8 +9,8 @@ using PeopleIndex.Models;
 namespace PeopleIndex.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220601160203_SeedDataAdded")]
-    partial class SeedDataAdded
+    [Migration("20220606150343_AddedCities")]
+    partial class AddedCities
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,38 @@ namespace PeopleIndex.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("PeopleList.Models.City", b =>
+                {
+                    b.Property<int>("CityId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CityName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CityId");
+
+                    b.ToTable("Cities");
+
+                    b.HasData(
+                        new
+                        {
+                            CityId = 1,
+                            CityName = "Stockholm"
+                        },
+                        new
+                        {
+                            CityId = 2,
+                            CityName = "Göteborg"
+                        },
+                        new
+                        {
+                            CityId = 3,
+                            CityName = "Malmö"
+                        });
+                });
+
             modelBuilder.Entity("PeopleList.Models.Person", b =>
                 {
                     b.Property<int>("Id")
@@ -28,12 +60,15 @@ namespace PeopleIndex.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("City")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using PeopleList.Models;
+using PeopleIndex.Models;
 
-namespace PeopleList.Migrations
+namespace PeopleIndex.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     [Migration("20220601154712_InitialMigration")]

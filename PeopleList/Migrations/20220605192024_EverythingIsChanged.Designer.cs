@@ -9,8 +9,8 @@ using PeopleIndex.Models;
 namespace PeopleIndex.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220601160203_SeedDataAdded")]
-    partial class SeedDataAdded
+    [Migration("20220605192024_EverythingIsChanged")]
+    partial class EverythingIsChanged
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,12 +28,15 @@ namespace PeopleIndex.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("City")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

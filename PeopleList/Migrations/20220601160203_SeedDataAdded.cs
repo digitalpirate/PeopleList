@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace PeopleList.Migrations
+namespace PeopleIndex.Migrations
 {
     public partial class SeedDataAdded : Migration
     {

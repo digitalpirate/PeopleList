@@ -1,0 +1,13 @@
+﻿@model Country
+
+<div class="row">
+    <div class="col-sm">
+      @Model.CountryId
+    </div>
+    <div class="col-sm">
+      @Model.CountryName
+    </div>
+    <div class="col-sm">
+        <a asp-action="Remove" asp-route-countryId="@Model.CountryId">Remove</a>
+    </div>
+</div>

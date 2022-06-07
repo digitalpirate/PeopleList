@@ -1,71 +1,67 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PeopleList.Models;
-using PeopleList.ViewModels;
+using PeopleIndex.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace PeopleList.Controllers
+namespace PeopleIndex.Controllers
 {
     public class PeopleController : Controller
     {
-       
         private readonly AppDbContext _context;
         public PeopleController(AppDbContext context)
         {
             _context = context;
         }
-
         public IActionResult Index()
         {
-            PeopleViewModel peopleViewModel = new PeopleViewModel
-            {
-                Person = _context.People.ToList()
-                
-            };
-
-            return View(peopleViewModel);
+           List<Person> listOfPeople=_context.People.ToList();
+           return View(listOfPeople);
         }
-        [HttpPost]
-        public IActionResult Index(string name, string phoneNumber, string city)
-        {
-            var newPerson = new Person()
-            {
-                Name = name,
-                PhoneNumber = phoneNumber,
-                City = city
-            };
-            _context.People.Add(newPerson);
-
-            PeopleViewModel peopleViewModel = new PeopleViewModel
-            {
-                Person = _context.People.ToList()
-            };
-            return View(peopleViewModel);
-        }
-
         [HttpPost]
         public IActionResult Index(string search)
         {
-            //PeopleViewModel peopleViewModel = Search(search);
-            //plocka ut det som matchar sökterm skicka till View.
-            //return View(peopleViewModel);
+            var searchPeople =  from ppl in _context.People
+                                where ppl.City.CityName == search || ppl.Name == search
+                                select ppl;
+
+            return View(searchPeople);
+        }
+        public IActionResult Create()
+        {
             return View();
         }
         [HttpPost]
-        public IActionResult Index(int id)
+        public IActionResult Create(Person newPerson)
         {
-            var person = new Person()
+            if (ModelState.IsValid)
             {
-                Id = id
-            };
-            _context.People.Remove(person);
-            _context.SaveChanges();
-            PeopleViewModel peopleViewModel = new PeopleViewModel
-            {
-                Person = _context.People.ToList()
-            };
-            return View(peopleViewModel);
+                _context.People.Add(newPerson);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View();
         }
+        public IActionResult Remove(int id)
+        {
+            var deleteEntry=_context.People.Find(id);
+            _context.People.Remove(deleteEntry);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        /*[HttpPost]
+        public IActionResult Order(string order)
+        {
+            if (order == "ascending")
+            {
+                var orderByAscendingPeople = from ppl in _context.People
+                                                 //where ppl.City == search || ppl.Name == search
+                                             orderby ppl.Name ascending
+                                             select ppl;
+                return View(orderByAscendingPeople);
+            }
+            else
+                return RedirectToAction("Index");
+        }*/
     }
 }

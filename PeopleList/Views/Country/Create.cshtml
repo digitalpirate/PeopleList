@@ -1,0 +1,8 @@
+﻿@model Country
+
+<form asp-controller="Country" asp-action="Create" method="post">
+    <label>Add Country</label>
+    <label asp-for="CountryName">Country</label>
+    <input asp-for="CountryName" type="text" />
+    <input type="submit" value="Create" />
+</form>

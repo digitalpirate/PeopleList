@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using PeopleList.Models;
-using PeopleList.NewFolder;
+using PeopleIndex.Models;
+using PeopleIndex.NewFolder;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PeopleList
+namespace PeopleIndex
 {
     public class Startup
     {
@@ -34,7 +34,7 @@ namespace PeopleList
 
             services.AddControllersWithViews();
 
-            services.AddScoped<IPeopleRepository, PeopleRepository>();
+            //services.AddScoped<IPeopleRepository, PeopleRepository>();
             
         }
 
@@ -56,6 +56,7 @@ namespace PeopleList
                     name: "default",
                     pattern: "{controller=People}/{action=Index}/{id?}"
                 );
+                
             });
         }
     }

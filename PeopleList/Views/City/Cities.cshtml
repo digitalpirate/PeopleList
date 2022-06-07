@@ -1,0 +1,10 @@
+﻿@model IEnumerable<City>
+
+<h1>Cities</h1>
+
+<div class="container">
+    @foreach (var item in Model)
+    {
+        <partial name="_CityCard" model="item" />
+    }
+</div>

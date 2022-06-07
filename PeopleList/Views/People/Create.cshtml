@@ -1,0 +1,12 @@
+﻿@model Person
+
+<form asp-controller="People" asp-action="Create" method="post">
+    <label>Add Person</label>
+    <label asp-for="Name">Name</label>
+    <input asp-for="Name" type="text" />
+    <label asp-for="PhoneNumber">Phone Number</label>
+    <input asp-for="PhoneNumber" type="text" />
+    <label asp-for="City">City</label>
+    <input asp-for="City" type="text" />
+    <input type="submit" value="Create" />
+</form>

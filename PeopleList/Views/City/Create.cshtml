@@ -1,0 +1,8 @@
+﻿@model City
+
+<form asp-controller="City" asp-action="Create" method="post">
+    <label>Add City</label>
+    <label asp-for="CityName">City</label>
+    <input asp-for="CityName" type="text" />
+    <input type="submit" value="Create" />
+</form>

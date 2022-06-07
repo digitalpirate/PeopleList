@@ -1,24 +1,16 @@
-﻿@model PeopleViewModel
+﻿@model IEnumerable<Person>
 
 <h1>People Index</h1>
-<form asp-controller="Home" asp-action="Index" method="post">
-    <input type="search" name="search" value="Search..." />
+<form asp-controller="People" asp-action="Index" method="post">
+    <Label>Search:</Label>
+    <input name="search" type="text" />
     <input type="submit" value="Search" /><br />
 </form>
-<form asp-controller="People" asp-action="Index" method="post">
-    <label>Add Person</label><br />
-    <input type="text" name="name" value="Name" /><br />
-    <input type="text" name="phoneNumber" value="Phone" /><br />
-    <input type="text" name="city" value="City" /><br />
-    <input type="submit" value="Add Person" />
-</form>
 <br />
-<br />
-<br />
-<table  cellpadding=5>
-    <thead colspan="3">Index of People</thead>
-@foreach (var person in Model.Person)
-{
-    <partial name="_PersonCard" model="person" />
-}
-</table>
+
+<div class="container">
+    @foreach (var item in Model)
+    {
+        <partial name="_PersonCard" model="item" />
+    }
+</div>

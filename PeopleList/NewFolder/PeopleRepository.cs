@@ -2,9 +2,9 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using PeopleList.Models;
+using PeopleIndex.Models;
 
-namespace PeopleList.NewFolder
+namespace PeopleIndex.NewFolder
 {
     public class PeopleRepository : IPeopleRepository
     {

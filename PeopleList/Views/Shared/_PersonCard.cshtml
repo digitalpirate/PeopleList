@@ -1,10 +1,19 @@
 ﻿@model Person
 
-<tr>
-        <th>@Model.Id</th>
-        <th>@Model.Name</th>
-        <th>@Model.City</th>
-        <th>@Model.PhoneNumber</th>
-        <th><form asp-controller="Home" asp-action="Index" method="post">
-            <input type="submit" name="Id" value="Delete" /></form></th>
-</tr>
+<div class="row">
+    <div class="col-sm">
+      @Model.Id
+    </div>
+    <div class="col-sm">
+      @Model.Name
+    </div>
+    <div class="col-sm">
+      @Model.City
+    </div>
+    <div class="col-sm">
+      @Model.PhoneNumber
+    </div>
+    <div class="col-sm">
+        <a asp-action="Remove" asp-route-id="@Model.Id">Remove</a>
+    </div>
+</div>

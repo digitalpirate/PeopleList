@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
-namespace PeopleList.Models
+namespace PeopleIndex.Models
 {
     public class AppDbContext : DbContext
     {
@@ -13,12 +14,66 @@ namespace PeopleList.Models
 
         }
         public DbSet<Person> People { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<Country> Countries { get; set; }
+        public DbSet<CitiesInCountry> CitiesInCountries { get; set; }
+        public DbSet<PeopleInCity> PeopleInCities { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-                        
-            //seed database
+
+            modelBuilder.Entity<CitiesInCountry>().HasKey(cic => new { cic.CityId, cic.CountryId });
+
+            modelBuilder.Entity<CitiesInCountry>()
+                .HasOne(cic => cic.Country)
+                .WithMany(ci => ci.Cities)
+                .HasForeignKey(cic => cic.CityId);
+
+            modelBuilder.Entity<PeopleInCity>().HasKey(pic => new { pic.Id, pic.CityId });
+
+            modelBuilder.Entity<PeopleInCity>()
+                .HasOne(pic => pic.City)
+                .WithMany(p => p.People)
+                .HasForeignKey(pic => pic.CityId);
+
+            // seed Countries
+
+            modelBuilder.Entity<Country>().HasData(new Country
+            {
+                CountryId = 1,
+                CountryName = "Sweden"
+            });
+            modelBuilder.Entity<Country>().HasData(new Country
+            {
+                CountryId = 2,
+                CountryName = "Denmark"
+            });
+            modelBuilder.Entity<Country>().HasData(new Country
+            {
+                CountryId = 3,
+                CountryName = "Norway"
+            });
+
+            //seed Cities
+
+            modelBuilder.Entity<City>().HasData(new City
+            {
+                CityId = 1,
+                CityName = "Stockholm"
+            });
+            modelBuilder.Entity<City>().HasData(new City
+            {
+                CityId = 2,
+                CityName = "Göteborg"
+            });
+            modelBuilder.Entity<City>().HasData(new City
+            {
+                CityId = 3,
+                CityName = "Malmö"
+            });
+
+            //seed People
 
             modelBuilder.Entity<Person>().HasData(new Person
             {
@@ -26,7 +81,7 @@ namespace PeopleList.Models
                 Name = "Christian",
                 PhoneNumber = "0123456789",
                 City = "Halmstad"
-            });
+            }) ;
 
             modelBuilder.Entity<Person>().HasData(new Person
             {
@@ -51,7 +106,7 @@ namespace PeopleList.Models
                 PhoneNumber = "3478956012",
                 City = "Göteborg"
             });
-
+            
         }
 
     }

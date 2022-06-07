@@ -1,7 +1,7 @@
-﻿using PeopleList.Models;
+﻿using PeopleIndex.Models;
 using System.Collections.Generic;
 
-namespace PeopleList.NewFolder
+namespace PeopleIndex.NewFolder
 {
     public interface IPeopleRepository
     {
