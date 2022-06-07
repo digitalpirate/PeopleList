@@ -17,17 +17,20 @@ namespace PeopleIndex.Models
         [Required]
         public string PhoneNumber { get; set; }
 
-        // [Required]
-        // public string City { get; set; }
+        [Required]
+        public int CityId { get; set; }
         
         [Required]
         public City City { get; set; }
         /*
         [Required]
-        public Country country { get; set; }
+        public List<PeopleWhoSpeakLanguage> LanguageOfPerson { get; set; }
+        
         
         [Required]
-        public Language PersonLanguage { get; set; }*/
+        public Country country { get; set; }
+        
+        */
 
     }
 }

@@ -6,6 +6,6 @@ namespace PeopleIndex.Models
     {
         public int CountryId { get; set; }
         public string CountryName { get; set; }
-        public List<CitiesInCountry> Cities  {get ; set;}
+        public List<City> Cities  {get ; set;}
     }
 }
