@@ -2,7 +2,7 @@
 
 namespace PeopleIndex.Migrations
 {
-    public partial class FirstMigration : Migration
+    public partial class InitDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -20,7 +20,7 @@ namespace PeopleIndex.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Language",
+                name: "Languages",
                 columns: table => new
                 {
                     LanguageId = table.Column<int>(nullable: false)
@@ -29,7 +29,7 @@ namespace PeopleIndex.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Language", x => x.LanguageId);
+                    table.PrimaryKey("PK_Languages", x => x.LanguageId);
                 });
 
             migrationBuilder.CreateTable(
@@ -84,33 +84,33 @@ namespace PeopleIndex.Migrations
                 {
                     table.PrimaryKey("PK_PeopleWhoSpeakLanguages", x => new { x.Id, x.LanguageId });
                     table.ForeignKey(
-                        name: "FK_PeopleWhoSpeakLanguages_People_Id",
+                        name: "FK_PeopleWhoSpeakLanguages_Languages_Id",
                         column: x => x.Id,
-                        principalTable: "People",
-                        principalColumn: "Id",
+                        principalTable: "Languages",
+                        principalColumn: "LanguageId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PeopleWhoSpeakLanguages_Language_LanguageId",
+                        name: "FK_PeopleWhoSpeakLanguages_People_LanguageId",
                         column: x => x.LanguageId,
-                        principalTable: "Language",
-                        principalColumn: "LanguageId",
+                        principalTable: "People",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
                 table: "Countries",
                 columns: new[] { "CountryId", "CountryName" },
-                values: new object[] { 1, "Sweden" });
+                values: new object[,]
+                {
+                    { 1, "Sweden" },
+                    { 2, "Denmark" },
+                    { 3, "Norway" }
+                });
 
             migrationBuilder.InsertData(
-                table: "Countries",
-                columns: new[] { "CountryId", "CountryName" },
-                values: new object[] { 2, "Denmark" });
-
-            migrationBuilder.InsertData(
-                table: "Countries",
-                columns: new[] { "CountryId", "CountryName" },
-                values: new object[] { 3, "Norway" });
+                table: "Languages",
+                columns: new[] { "LanguageId", "LanguageName" },
+                values: new object[] { 1, "Swedish" });
 
             migrationBuilder.InsertData(
                 table: "Cities",
@@ -156,10 +156,10 @@ namespace PeopleIndex.Migrations
                 name: "PeopleWhoSpeakLanguages");
 
             migrationBuilder.DropTable(
-                name: "People");
+                name: "Languages");
 
             migrationBuilder.DropTable(
-                name: "Language");
+                name: "People");
 
             migrationBuilder.DropTable(
                 name: "Cities");

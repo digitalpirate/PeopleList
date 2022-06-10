@@ -3,7 +3,7 @@
 <form asp-controller="City" asp-action="Create" method="post">
     <label>Add City</label>
     <label asp-for="CityName">City</label>
-    <input asp-for="CityName" type="text" />
-    <select asp-for="CountryId" asp-items="@ViewBag.Country"> </select>
+    <input asp-for="CityName" type="text" /><br />
+    <select asp-for="CountryId" asp-items="@ViewBag.Country"> </select><br />
     <input type="submit" value="Create" />
 </form>

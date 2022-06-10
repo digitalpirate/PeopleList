@@ -18,13 +18,16 @@ namespace PeopleIndex.Controllers
         }
         public IActionResult Index()
         {
-           List<Person> listOfPeople=_context.People.Include(c => c.City).ToList();
+           List<Person> listOfPeople=_context.People
+                .Include(c => c.City)
+                .ToList();
+
            return View(listOfPeople);
         }
         [HttpPost]
         public IActionResult Index(string search)
         {
-            var searchPeople =  from ppl in _context.People
+            var searchPeople =  from ppl in _context.People.Include(c => c.City)
                                 where ppl.City.CityName == search || ppl.Name == search
                                 select ppl;
 
@@ -33,6 +36,7 @@ namespace PeopleIndex.Controllers
         public IActionResult Create()
         {
             ViewBag.City = new SelectList(_context.Cities, "CityId", "CityName");
+            ViewBag.Language = new SelectList(_context.Languages, "LanguageId", "LanguageName");
             return View();
         }
         [HttpPost]

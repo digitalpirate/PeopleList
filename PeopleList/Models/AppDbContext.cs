@@ -28,12 +28,12 @@ namespace PeopleIndex.Models
             modelBuilder.Entity<PeopleWhoSpeakLanguage>()
                 .HasOne(pwsl => pwsl.Language)
                 .WithMany(p => p.WhoSpeakLanguages)
-                .HasForeignKey(pwsl => pwsl.LanguageId);
+                .HasForeignKey(pwsl => pwsl.Id);
 
             modelBuilder.Entity<PeopleWhoSpeakLanguage>()
                 .HasOne(pwsl => pwsl.People)
                 .WithMany(l => l.LanguageOfPerson)
-                .HasForeignKey(pwsl => pwsl.Id);
+                .HasForeignKey(pwsl => pwsl.LanguageId);
 
             //seed Language
 

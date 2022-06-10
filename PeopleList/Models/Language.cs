@@ -6,6 +6,7 @@ namespace PeopleIndex.Models
     {
         public int LanguageId { get; set; }
         public string LanguageName { get; set; }
+        
         public List<PeopleWhoSpeakLanguage> WhoSpeakLanguages { get; set; }
     }
 }

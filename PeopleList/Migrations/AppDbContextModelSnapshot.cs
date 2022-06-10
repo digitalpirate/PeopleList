@@ -108,7 +108,14 @@ namespace PeopleIndex.Migrations
 
                     b.HasKey("LanguageId");
 
-                    b.ToTable("Language");
+                    b.ToTable("Languages");
+
+                    b.HasData(
+                        new
+                        {
+                            LanguageId = 1,
+                            LanguageName = "Swedish"
+                        });
                 });
 
             modelBuilder.Entity("PeopleIndex.Models.PeopleWhoSpeakLanguage", b =>
@@ -192,14 +199,14 @@ namespace PeopleIndex.Migrations
 
             modelBuilder.Entity("PeopleIndex.Models.PeopleWhoSpeakLanguage", b =>
                 {
-                    b.HasOne("PeopleIndex.Models.Person", "People")
-                        .WithMany("LanguageOfPerson")
+                    b.HasOne("PeopleIndex.Models.Language", "Language")
+                        .WithMany("WhoSpeakLanguages")
                         .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PeopleIndex.Models.Language", "Language")
-                        .WithMany("WhoSpeakLanguages")
+                    b.HasOne("PeopleIndex.Models.Person", "People")
+                        .WithMany("LanguageOfPerson")
                         .HasForeignKey("LanguageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

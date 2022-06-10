@@ -3,10 +3,11 @@
 <form asp-controller="People" asp-action="Create" method="post">
     <label>Add Person</label>
     <label asp-for="Name">Name</label>
-    <input asp-for="Name" type="text" />
+    <input asp-for="Name" type="text" /><br />
     <label asp-for="PhoneNumber">Phone Number</label>
-    <input asp-for="PhoneNumber" type="text" />
+    <input asp-for="PhoneNumber" type="text" /><br />
     <label asp-for="City">City</label>
-    <select asp-for="CityId" asp-items="@ViewBag.City"> </select>
+    <select asp-for="CityId" asp-items="@ViewBag.City"> </select><br />
+    <select asp-for="LanguageOfPerson" asp-items="@ViewBag.Language"> </select><br />
     <input type="submit" value="Create" />
 </form>

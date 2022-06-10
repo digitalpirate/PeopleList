@@ -17,6 +17,12 @@ namespace PeopleIndex.Controllers
         }
         public IActionResult Languages()
         {
+            List<Language> listOfLanguages = _context.Languages.ToList();
+            return View(listOfLanguages);
+            
+        }
+        public IActionResult Create()
+        {
             return View();
         }
         [HttpPost]
