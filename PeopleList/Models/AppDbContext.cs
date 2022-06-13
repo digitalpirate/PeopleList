@@ -17,22 +17,22 @@ namespace PeopleIndex.Models
         public DbSet<City> Cities { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<Language> Languages { get; set; }
-        public DbSet<PeopleWhoSpeakLanguage> PeopleWhoSpeakLanguages { get; set; }
+        public DbSet<PersonLanguage> Personlanguage { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
                         
-            modelBuilder.Entity<PeopleWhoSpeakLanguage>().HasKey(pwsl => new { pwsl.PersonId, pwsl.LanguageId });
+            modelBuilder.Entity<PersonLanguage>().HasKey(pwsl => new { pwsl.PersonId, pwsl.LanguageId });
 
-            modelBuilder.Entity<PeopleWhoSpeakLanguage>()
+            modelBuilder.Entity<PersonLanguage>()
                 .HasOne(pwsl => pwsl.Language)
-                .WithMany(p => p.WhoSpeakLanguages)
+                .WithMany(p => p.PersonLanguage)
                 .HasForeignKey(pwsl => pwsl.PersonId);
 
-            modelBuilder.Entity<PeopleWhoSpeakLanguage>()
+            modelBuilder.Entity<PersonLanguage>()
                 .HasOne(pwsl => pwsl.Person)
-                .WithMany(l => l.LanguageOfPerson)
+                .WithMany(l => l.PersonLanguage)
                 .HasForeignKey(pwsl => pwsl.LanguageId);
 
             //seed Language

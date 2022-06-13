@@ -1,7 +1,9 @@
 ﻿@model IEnumerable<Country>
 
 <h1>Countries</h1>
-
+<br />
+<a asp-controller="Country" asp-action="Create">Add Country</a>
+<br />
 <div class="container">
     @foreach (var item in Model)
     {

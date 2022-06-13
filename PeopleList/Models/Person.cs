@@ -22,7 +22,7 @@ namespace PeopleIndex.Models
         
         public City City { get; set; }
                 
-        public List<PeopleWhoSpeakLanguage> LanguageOfPerson { get; set; }
+        public List<PersonLanguage> PersonLanguage { get; set; }
         
     }
 }

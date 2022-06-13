@@ -1,6 +1,9 @@
 ﻿@model IEnumerable<Person>
 
 <h1>People Index</h1>
+<br />
+<a asp-controller="People" asp-action="Create">Add Person</a>
+<br />
 <form asp-controller="People" asp-action="Index" method="post">
     <Label>Search:</Label>
     <input name="search" type="text" />

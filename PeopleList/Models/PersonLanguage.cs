@@ -1,6 +1,6 @@
 ﻿namespace PeopleIndex.Models
 {
-    public class PeopleWhoSpeakLanguage
+    public class PersonLanguage
     {
         public int PersonId { get; set; }
         public Person Person { get; set; }
