@@ -23,15 +23,15 @@ namespace PeopleIndex.Models
         {
             base.OnModelCreating(modelBuilder);
                         
-            modelBuilder.Entity<PeopleWhoSpeakLanguage>().HasKey(pwsl => new { pwsl.Id, pwsl.LanguageId });
+            modelBuilder.Entity<PeopleWhoSpeakLanguage>().HasKey(pwsl => new { pwsl.PersonId, pwsl.LanguageId });
 
             modelBuilder.Entity<PeopleWhoSpeakLanguage>()
                 .HasOne(pwsl => pwsl.Language)
                 .WithMany(p => p.WhoSpeakLanguages)
-                .HasForeignKey(pwsl => pwsl.Id);
+                .HasForeignKey(pwsl => pwsl.PersonId);
 
             modelBuilder.Entity<PeopleWhoSpeakLanguage>()
-                .HasOne(pwsl => pwsl.People)
+                .HasOne(pwsl => pwsl.Person)
                 .WithMany(l => l.LanguageOfPerson)
                 .HasForeignKey(pwsl => pwsl.LanguageId);
 
@@ -94,7 +94,7 @@ namespace PeopleIndex.Models
 
             modelBuilder.Entity<Person>().HasData(new Person
             {
-                Id = 1,
+                PersonId = 1,
                 Name = "Christian",
                 PhoneNumber = "0123456789",
                 CityId=4
@@ -102,7 +102,7 @@ namespace PeopleIndex.Models
 
             modelBuilder.Entity<Person>().HasData(new Person
             {
-                Id = 2,
+                PersonId = 2,
                 Name = "Billy",
                 PhoneNumber = "1234567890",
                 CityId=4
@@ -110,7 +110,7 @@ namespace PeopleIndex.Models
 
             modelBuilder.Entity<Person>().HasData(new Person
             {
-                Id = 3,
+                PersonId = 3,
                 Name = "Adam",
                 PhoneNumber = "3456789012",
                 CityId=1
@@ -118,7 +118,7 @@ namespace PeopleIndex.Models
 
             modelBuilder.Entity<Person>().HasData(new Person
             {
-                Id = 4,
+                PersonId = 4,
                 Name = "Dennis",
                 PhoneNumber = "3478956012",
                 CityId=2

@@ -9,7 +9,7 @@ namespace PeopleIndex.Models
     public class Person 
     {
         [Key]
-        public int Id { get; set; }
+        public int PersonId { get; set; }
 
         [Required]
         public string Name { get; set; }
@@ -20,10 +20,8 @@ namespace PeopleIndex.Models
         [Required]
         public int CityId { get; set; }
         
-        [Required]
         public City City { get; set; }
                 
-        [Required]
         public List<PeopleWhoSpeakLanguage> LanguageOfPerson { get; set; }
         
     }

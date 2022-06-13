@@ -27,6 +27,7 @@ namespace PeopleIndex.Controllers
         [HttpPost]
         public IActionResult Index(string search)
         {
+            
             var searchPeople =  from ppl in _context.People.Include(c => c.City)
                                 where ppl.City.CityName == search || ppl.Name == search
                                 select ppl;

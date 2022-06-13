@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PeopleIndex.Models;
 
 namespace PeopleIndex.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220613090630_language")]
+    partial class language
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -120,13 +122,13 @@ namespace PeopleIndex.Migrations
 
             modelBuilder.Entity("PeopleIndex.Models.PeopleWhoSpeakLanguage", b =>
                 {
-                    b.Property<int>("PersonId")
+                    b.Property<int>("Id")
                         .HasColumnType("int");
 
                     b.Property<int>("LanguageId")
                         .HasColumnType("int");
 
-                    b.HasKey("PersonId", "LanguageId");
+                    b.HasKey("Id", "LanguageId");
 
                     b.HasIndex("LanguageId");
 
@@ -135,7 +137,7 @@ namespace PeopleIndex.Migrations
 
             modelBuilder.Entity("PeopleIndex.Models.Person", b =>
                 {
-                    b.Property<int>("PersonId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -151,7 +153,7 @@ namespace PeopleIndex.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("PersonId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CityId");
 
@@ -160,28 +162,28 @@ namespace PeopleIndex.Migrations
                     b.HasData(
                         new
                         {
-                            PersonId = 1,
+                            Id = 1,
                             CityId = 4,
                             Name = "Christian",
                             PhoneNumber = "0123456789"
                         },
                         new
                         {
-                            PersonId = 2,
+                            Id = 2,
                             CityId = 4,
                             Name = "Billy",
                             PhoneNumber = "1234567890"
                         },
                         new
                         {
-                            PersonId = 3,
+                            Id = 3,
                             CityId = 1,
                             Name = "Adam",
                             PhoneNumber = "3456789012"
                         },
                         new
                         {
-                            PersonId = 4,
+                            Id = 4,
                             CityId = 2,
                             Name = "Dennis",
                             PhoneNumber = "3478956012"
@@ -199,15 +201,15 @@ namespace PeopleIndex.Migrations
 
             modelBuilder.Entity("PeopleIndex.Models.PeopleWhoSpeakLanguage", b =>
                 {
-                    b.HasOne("PeopleIndex.Models.Person", "Person")
-                        .WithMany("LanguageOfPerson")
-                        .HasForeignKey("LanguageId")
+                    b.HasOne("PeopleIndex.Models.Language", "Language")
+                        .WithMany("WhoSpeakLanguages")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PeopleIndex.Models.Language", "Language")
-                        .WithMany("WhoSpeakLanguages")
-                        .HasForeignKey("PersonId")
+                    b.HasOne("PeopleIndex.Models.Person", "People")
+                        .WithMany("LanguageOfPerson")
+                        .HasForeignKey("LanguageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
