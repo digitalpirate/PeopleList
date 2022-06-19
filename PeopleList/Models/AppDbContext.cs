@@ -1,12 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
 namespace PeopleIndex.Models
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext
     {
         public AppDbContext()
         {
+
         }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
@@ -18,9 +20,11 @@ namespace PeopleIndex.Models
         public DbSet<Country> Countries { get; set; }
         public DbSet<Language> Languages { get; set; }
         public DbSet<PersonLanguage> Personlanguage { get; set; }
+        public DbSet<ApplicationUser> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
             base.OnModelCreating(modelBuilder);
                         
             modelBuilder.Entity<PersonLanguage>().HasKey(pwsl => new { pwsl.PersonId, pwsl.LanguageId });

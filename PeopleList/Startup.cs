@@ -6,10 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PeopleIndex.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace PeopleIndex
 {
@@ -33,6 +31,11 @@ namespace PeopleIndex
 
             services.AddControllersWithViews();
 
+            services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddDefaultUI()
+                .AddDefaultTokenProviders()
+                .AddEntityFrameworkStores<AppDbContext>();
+
             //services.AddScoped<IPeopleRepository, PeopleRepository>();
             
         }
@@ -46,8 +49,13 @@ namespace PeopleIndex
             }
 
             app.UseHttpsRedirection();
+
             app.UseStaticFiles();
+
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
@@ -55,8 +63,11 @@ namespace PeopleIndex
                     name: "default",
                     pattern: "{controller=People}/{action=Index}/{id?}"
                 );
+
+                endpoints.MapRazorPages();
                 
             });
+
         }
     }
 }

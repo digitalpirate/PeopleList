@@ -11,6 +11,7 @@
 <body class="bootstrap-dark">
     <nav >
         <ul class="nav justify-content-center">
+            <partial name="_LoginPartial" />
             <li class="nav-item">
                 <a class="nav-link" asp-controller="People" asp-action="Index">Home</a>
             </li>
@@ -28,5 +29,7 @@
     <div class="container">
         @RenderBody()
     </div>
+    @RenderSection("Scripts", required:false)
 </body>
+
 </html>
