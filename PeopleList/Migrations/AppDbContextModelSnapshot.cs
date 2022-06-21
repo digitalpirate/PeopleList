@@ -48,15 +48,15 @@ namespace PeopleIndex.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "876067fb-eaf9-414d-a579-176b7431af1a",
-                            ConcurrencyStamp = "c4944b09-f4bf-4cb9-b50e-a8c31f0b8f07",
+                            Id = "ce018a66-5653-484e-91b2-ba2d8b73855f",
+                            ConcurrencyStamp = "b768f903-89fd-4b18-853d-5d71b9db3280",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "8fda3e95-31d0-406e-84cf-de219e8f2b5e",
-                            ConcurrencyStamp = "858383c6-6517-4bf2-b84b-bfc3b8e376c4",
+                            Id = "96afb087-dc49-4ef0-94f0-e4af2ab862c7",
+                            ConcurrencyStamp = "bbfb85e8-94b0-499b-9c3a-e7b57d1e8f2a",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -220,8 +220,8 @@ namespace PeopleIndex.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "7d98d68f-e387-4ec5-b963-b5a89087ebec",
-                            RoleId = "876067fb-eaf9-414d-a579-176b7431af1a"
+                            UserId = "3cb9c8f9-33de-4958-bb05-a9ad3fa9c8ce",
+                            RoleId = "ce018a66-5653-484e-91b2-ba2d8b73855f"
                         });
                 });
 
@@ -332,6 +332,9 @@ namespace PeopleIndex.Migrations
                     b.Property<string>("LanguageName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("PersonId")
+                        .HasColumnType("int");
+
                     b.HasKey("LanguageId");
 
                     b.ToTable("Languages");
@@ -340,7 +343,8 @@ namespace PeopleIndex.Migrations
                         new
                         {
                             LanguageId = 1,
-                            LanguageName = "Swedish"
+                            LanguageName = "Swedish",
+                            PersonId = 0
                         });
                 });
 
@@ -439,17 +443,17 @@ namespace PeopleIndex.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7d98d68f-e387-4ec5-b963-b5a89087ebec",
+                            Id = "3cb9c8f9-33de-4958-bb05-a9ad3fa9c8ce",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "70a1db93-06f4-4c8f-bb7b-2baa4d40ce13",
+                            ConcurrencyStamp = "d375de53-c268-487d-b2e9-84f5f8951be3",
                             Email = "admin@domain.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@DOMAIN.COM",
                             NormalizedUserName = "ADMIN@DOMAIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAELaiZVXsiaiWFHczN3tGUMbJVvb4h5Xj61nVNEY62QinCLXm8EzAmo784yLHvrnwkQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAED1l8hwwNreR2yk25tX6Pldr4LFs1qlBycQXk6S8orzq+T+QgViEmAn3PxB7SgtyZw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "433780bb-8afb-4565-95bc-84f5e20c53f0",
+                            SecurityStamp = "ad72e8ce-f632-4f3a-9667-debec28bebc1",
                             TwoFactorEnabled = false,
                             UserName = "admin@domain.com",
                             Age = 35,
@@ -536,7 +540,7 @@ namespace PeopleIndex.Migrations
                         .IsRequired();
 
                     b.HasOne("PeopleIndex.Models.Language", "Language")
-                        .WithMany("People")
+                        .WithMany("Languages")
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

@@ -38,7 +38,7 @@ namespace PeopleIndex.Models
 
             modelBuilder.Entity<PersonLanguage>()
                 .HasOne(pl => pl.Language)
-                .WithMany(pl => pl.People)
+                .WithMany(pl => pl.Languages)
                 .HasForeignKey(pl => pl.PersonId);
 
             

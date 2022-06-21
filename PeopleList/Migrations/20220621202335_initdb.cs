@@ -69,7 +69,8 @@ namespace PeopleIndex.Migrations
                 {
                     LanguageId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    LanguageName = table.Column<string>(nullable: true)
+                    LanguageName = table.Column<string>(nullable: true),
+                    PersonId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -253,14 +254,14 @@ namespace PeopleIndex.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "876067fb-eaf9-414d-a579-176b7431af1a", "c4944b09-f4bf-4cb9-b50e-a8c31f0b8f07", "Admin", "ADMIN" },
-                    { "8fda3e95-31d0-406e-84cf-de219e8f2b5e", "858383c6-6517-4bf2-b84b-bfc3b8e376c4", "User", "USER" }
+                    { "ce018a66-5653-484e-91b2-ba2d8b73855f", "b768f903-89fd-4b18-853d-5d71b9db3280", "Admin", "ADMIN" },
+                    { "96afb087-dc49-4ef0-94f0-e4af2ab862c7", "bbfb85e8-94b0-499b-9c3a-e7b57d1e8f2a", "User", "USER" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "Age", "City", "Name" },
-                values: new object[] { "7d98d68f-e387-4ec5-b963-b5a89087ebec", 0, "70a1db93-06f4-4c8f-bb7b-2baa4d40ce13", "ApplicationUser", "admin@domain.com", false, false, null, "ADMIN@DOMAIN.COM", "ADMIN@DOMAIN.COM", "AQAAAAEAACcQAAAAELaiZVXsiaiWFHczN3tGUMbJVvb4h5Xj61nVNEY62QinCLXm8EzAmo784yLHvrnwkQ==", null, false, "433780bb-8afb-4565-95bc-84f5e20c53f0", false, "admin@domain.com", 35, "Halmstad", "Christian Madsen" });
+                values: new object[] { "3cb9c8f9-33de-4958-bb05-a9ad3fa9c8ce", 0, "d375de53-c268-487d-b2e9-84f5f8951be3", "ApplicationUser", "admin@domain.com", false, false, null, "ADMIN@DOMAIN.COM", "ADMIN@DOMAIN.COM", "AQAAAAEAACcQAAAAED1l8hwwNreR2yk25tX6Pldr4LFs1qlBycQXk6S8orzq+T+QgViEmAn3PxB7SgtyZw==", null, false, "ad72e8ce-f632-4f3a-9667-debec28bebc1", false, "admin@domain.com", 35, "Halmstad", "Christian Madsen" });
 
             migrationBuilder.InsertData(
                 table: "Countries",
@@ -274,13 +275,13 @@ namespace PeopleIndex.Migrations
 
             migrationBuilder.InsertData(
                 table: "Languages",
-                columns: new[] { "LanguageId", "LanguageName" },
-                values: new object[] { 1, "Swedish" });
+                columns: new[] { "LanguageId", "LanguageName", "PersonId" },
+                values: new object[] { 1, "Swedish", 0 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "UserId", "RoleId" },
-                values: new object[] { "7d98d68f-e387-4ec5-b963-b5a89087ebec", "876067fb-eaf9-414d-a579-176b7431af1a" });
+                values: new object[] { "3cb9c8f9-33de-4958-bb05-a9ad3fa9c8ce", "ce018a66-5653-484e-91b2-ba2d8b73855f" });
 
             migrationBuilder.InsertData(
                 table: "Cities",
