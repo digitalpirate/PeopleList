@@ -21,8 +21,9 @@ namespace PeopleIndex.Models
         public int CityId { get; set; }
         
         public City City { get; set; }
+        public int LanguageId { get; set; }
                 
-        public List<PersonLanguage> PersonLanguage { get; set; }
+        public ICollection<PersonLanguage> Languages { get; set; }
         
     }
 }

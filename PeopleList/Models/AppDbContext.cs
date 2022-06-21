@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 
 namespace PeopleIndex.Models
@@ -27,17 +29,19 @@ namespace PeopleIndex.Models
 
             base.OnModelCreating(modelBuilder);
                         
-            modelBuilder.Entity<PersonLanguage>().HasKey(pwsl => new { pwsl.PersonId, pwsl.LanguageId });
+            modelBuilder.Entity<PersonLanguage>().HasKey(pl => new { pl.PersonId, pl.LanguageId });
 
             modelBuilder.Entity<PersonLanguage>()
-                .HasOne(pwsl => pwsl.Language)
-                .WithMany(p => p.PersonLanguage)
-                .HasForeignKey(pwsl => pwsl.PersonId);
+                .HasOne(pl => pl.Person)
+                .WithMany(pl => pl.Languages)
+                .HasForeignKey(pl => pl.LanguageId);
 
             modelBuilder.Entity<PersonLanguage>()
-                .HasOne(pwsl => pwsl.Person)
-                .WithMany(l => l.PersonLanguage)
-                .HasForeignKey(pwsl => pwsl.LanguageId);
+                .HasOne(pl => pl.Language)
+                .WithMany(pl => pl.People)
+                .HasForeignKey(pl => pl.PersonId);
+
+            
 
             //seed Language
 
@@ -101,7 +105,8 @@ namespace PeopleIndex.Models
                 PersonId = 1,
                 Name = "Christian",
                 PhoneNumber = "0123456789",
-                CityId=4
+                CityId=4,
+                LanguageId=1
             }) ;
 
             modelBuilder.Entity<Person>().HasData(new Person
@@ -109,7 +114,8 @@ namespace PeopleIndex.Models
                 PersonId = 2,
                 Name = "Billy",
                 PhoneNumber = "1234567890",
-                CityId=4
+                CityId=4,
+                LanguageId = 1
             });
 
             modelBuilder.Entity<Person>().HasData(new Person
@@ -117,7 +123,8 @@ namespace PeopleIndex.Models
                 PersonId = 3,
                 Name = "Adam",
                 PhoneNumber = "3456789012",
-                CityId=1
+                CityId=1,
+                LanguageId = 1
             });
 
             modelBuilder.Entity<Person>().HasData(new Person
@@ -125,7 +132,47 @@ namespace PeopleIndex.Models
                 PersonId = 4,
                 Name = "Dennis",
                 PhoneNumber = "3478956012",
-                CityId=2
+                CityId=2,
+                LanguageId = 1
+            });
+
+            string roleId=Guid.NewGuid().ToString();
+            string userRoleId = Guid.NewGuid().ToString();
+            string userId = Guid.NewGuid().ToString();
+
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
+            {
+                Id=roleId,
+                Name="Admin",
+                NormalizedName="ADMIN"
+            });
+
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
+            {
+                Id = userRoleId,
+                Name = "User",
+                NormalizedName = "USER"
+            });
+
+            PasswordHasher<ApplicationUser> hasher = new PasswordHasher<ApplicationUser>();
+
+            modelBuilder.Entity<ApplicationUser>().HasData(new ApplicationUser
+            {
+                Id=userId,
+                Email="admin@domain.com",
+                NormalizedEmail="ADMIN@DOMAIN.COM",
+                UserName="admin@domain.com",
+                NormalizedUserName="ADMIN@DOMAIN.COM",
+                Name="Christian Madsen",
+                Age=35,
+                City="Halmstad",
+                PasswordHash=hasher.HashPassword(null,"password")
+            });
+
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
+            {
+                RoleId=roleId,
+                UserId=userId
             });
 
         }

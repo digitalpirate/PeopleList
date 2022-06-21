@@ -2,6 +2,23 @@
 
 <h1>People Index</h1>
 <br />
+@if(!User.Identity.IsAuthenticated)
+{
+    <p>Not logged in!</p>
+}
+@if(User.Identity.IsAuthenticated)
+{
+    <p>logged in!</p>
+}
+@if (User.IsInRole("User"))
+{
+    <p>logged in as User</p>
+}
+@if (User.IsInRole("Admin"))
+{
+    <p>logged in as Admin</p>
+}
+<br />
 <a asp-controller="People" asp-action="Create">Add Person</a>
 <br />
 <form asp-controller="People" asp-action="Index" method="post">

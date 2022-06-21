@@ -20,6 +20,7 @@ namespace PeopleIndex.Controllers
         {
            List<Person> listOfPeople=_context.People
                 .Include(c => c.City)
+                .Include(l => l.Languages)
                 .ToList();
 
            return View(listOfPeople);

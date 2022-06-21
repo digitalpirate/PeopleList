@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 using PeopleIndex.Models;
@@ -8,6 +9,7 @@ using System.Linq;
 
 namespace PeopleIndex.Controllers
 {
+    //[Authorize(Roles = "Admin")]
     public class LanguageController : Controller
     {
         private readonly AppDbContext _context;
